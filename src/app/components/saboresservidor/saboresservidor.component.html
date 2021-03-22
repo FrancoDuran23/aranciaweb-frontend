@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabores</title>
+</head>
+<body>
+
+    <div class="container   col-sm-12 bg-dark ">
+
+        <br/>
+        <div class=" row ">
+            <div class="col-md-2 col-sm-0"></div>
+            <div id="formContent" class="card text-white bg-dark  col-md-8  col-12 center-block ">
+                <div class="card-header col-md-12 col-12">Cargar Sabores</div>
+                <div class="card-body ">
+                    <form class="row no-gutters"   id="formulario"
+                    #formSabor="ngForm" (ngSubmit)="onSubmit(formSabor)">
+                        <div class="col-md-4 col-sm-4 col-12">
+                            <div class="form-group " style="margin-right: 10px;"> 
+                                
+                                <div >
+                                    
+                                  <input  #photoInput #txtImagen="ngModel" type="file" accept=".png, .jpg" (change)="onUpload($event)" class="form-control-file d-none" id="exampleFormControlFile1" required  name="txtImagen"
+                                  [(ngModel)]="sabor.imagen">
+                                  <img #imgin class="card-img " [src]="fotoElegido || '/assets/img/defect.png'" (click)="photoInput.click()"   width="25px" height="250px" style="margin-bottom:15px;" />
+                                </div>
+                              
+                               
+                              </div>
+                        </div>
+                        <hr>
+                       
+                        <div class="col-md-8 col-sm-8 col-12"  >
+                            <div >
+                                <div class="form-group" >
+                                   
+                                    <label for="formGroupExampleInput">Nombre del Sabor</label>
+                                    <input  #txtNombre="ngModel"  type="text" class="form-control" id="txtNombre" placeholder="Nombre del Sabor" name="txtNombre" required   [(ngModel)]="sabor.nombre">
+                                    <div > 
+                                      <div *ngIf="txtNombre.invalid && (txtNombre.dirty || txtNombre.touched)" class="alert alert-danger">
+                                        <div *ngIf="txtNombre?.errors?.required" >
+                                          Nombre es requerido.
+                                        </div>
+                                      </div>
+                                   
+                                    </div>
+                                  
+                                  </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="formGroupExampleInput2">Descripcion del Sabor</label>
+                                    <input #txtDescripcion="ngModel"   type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" placeholder="Descripcion del Sabor" required [(ngModel)]="sabor.descripcion">
+                                    <div >
+                                      <div *ngIf="txtDescripcion.invalid && (txtDescripcion.dirty || txtDescripcion.touched)" class="alert alert-danger" >
+                                         <div *ngIf="txtDescripcion?.errors?.required" >
+                                          Descripcion es requerida.
+                                        </div>
+                                      </div>
+                                   
+                                    </div>
+                                    <div class="form-check col-md-6 col-6" style="margin-top:10px;">
+                                        <label class="form-check-label" for="defaultCheck1" style=" margin-right: 50px;">
+                                            Sabor Disponible
+                                          </label>
+                                        <input   class="form-check-input" type="checkbox" value="" id="chkActivo" name="chkActivo" [(ngModel)]="sabor.activo">
+                                       
+                                      </div>
+                                  </div>
+                                  <div class=" float-right">
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-outline-success"  style="margin-left: 5px;" data-toggle="modal" data-target="#modalGuardar"  [disabled]="formSabor.invalid">
+  Guardar
+</button>
+
+<!-- Modal -->
+<div class="modal  fade" id="modalGuardar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog col-md-12 " role="document">
+    <div class="modal-content bg-dark">
+      <div class="modal-header bg-dark">
+        <h5 class="modal-title bg-dark" id="exampleModalLabel" style="color: white;">Desea guardar el Sabor?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body bg-dark ">
+        <div class="row">
+          <div class="col-md-5 col-12">
+            <img  class="card-img img-fluid" [src]="fotoElegido " width="60px" height="250px" style="margin-bottom:15px;" />
+          </div>
+          <div class="col-md-7">
+            <div class="form-group"> <label>Nombre: <label>{{this.sabor.nombre}}</label></label></div>
+            <div class="form-group"> <label>Descripcion: <label>{{this.sabor.descripcion}}</label></label></div>
+         
+          </div>
+        </div>
+        
+        
+       
+      </div>
+      <div class="modal-footer bg-dark">
+        <button type="button" class="btn btn-outline-success" (click)="guardarSabor() ; onSubmit(formSabor)"  data-dismiss="modal">Guardar</button>
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+     
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-outline-primary"  style="margin-left: 5px;" data-toggle="modal" data-target="#modalModificar"  [disabled]="formSabor.invalid">
+  Modificar
+</button>
+
+<!-- Modal -->
+<div class="modal  fade" id="modalModificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog col-md-12 " role="document">
+    <div class="modal-content bg-dark">
+      <div class="modal-header bg-dark">
+        <h5 class="modal-title bg-dark" id="exampleModalLabel" style="color: white;">Desea Modificar el sabor?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body bg-dark ">
+        <div class="row">
+          <div class="col-md-5 col-12">
+            <img  class="card-img img-fluid" [src]="fotoElegido " width="60px" height="250px" style="margin-bottom:15px;" />
+          </div>
+          <div class="col-md-7">
+            <div class="form-group"> <label>Nombre: <label>{{this.sabor.nombre}}</label></label></div>
+            <div class="form-group"> <label>Descripcion: <label>{{this.sabor.descripcion}}</label></label></div>
+          
+          </div>
+        </div>
+        
+        
+       
+      </div>
+      <div class="modal-footer bg-dark">
+        <button type="button" class="btn btn-outline-success" (click)="modificarSabor(); onSubmit(formSabor)" data-dismiss="modal">Modificar</button>
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+     
+      </div>
+    </div>
+  </div>
+</div>
+
+                                   
+                         <!-- Button trigger modal -->
+<button type="button" class="btn btn-outline-danger"  style="margin-left: 5px;" data-toggle="modal" data-target="#modalEliminar"  [disabled]="formSabor.invalid">
+  Eliminar
+</button>
+
+<!-- Modal -->
+<div class="modal  fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog col-md-12 " role="document">
+    <div class="modal-content bg-dark">
+      <div class="modal-header bg-dark">
+        <h5 class="modal-title bg-dark" id="exampleModalLabel" style="color: white;">Desea Eliminar el sabor?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body bg-dark ">
+        <div class="row">
+          <div class="col-md-5 col-12">
+            <img  class="card-img img-fluid" [src]="fotoElegido " width="60px" height="250px" style="margin-bottom:15px;" />
+          </div>
+          <div class="col-md-7">
+            <div class="form-group"> <label>Nombre: <label>{{this.sabor.nombre}}</label></label></div>
+            <div class="form-group"> <label>Descripcion: <label>{{this.sabor.descripcion}}</label></label></div>
+           
+          </div>
+        </div>
+        
+        
+       
+      </div>
+      <div class="modal-footer bg-dark">
+        <button type="button" class="btn btn-outline-success" (click)=" borrarSabor(this.sabor._id); onSubmit(formSabor)" data-dismiss="modal">Eliminar</button>
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+     
+      </div>
+    </div>
+  </div>
+</div>        
+                             
+                                     
+                              
+                                    </div>
+                            </div>
+    
+                            
+                      
+                         
+                      </form>
+                </div>
+               
+            </div>
+        </div>
+        <div class="row">
+             <div class="col-md-1 col-0"></div>
+        <div class="col-md-9 col-12 ">
+            <table
+            class="table table-responsive-sm table-dark table-striped col-md-12"
+            [mfData]="sabores"
+            #mf="mfDataTable"
+            id="tablea"
+            [mfRowsOnPage]="4"
+          >
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Activo</th>                
+                <th scope="col">Descripcion</th>
+                <th scope="col">Imagen</th>
+                <th scope="col" style="text-align: center;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pro of mf.data">
+                <th scope="row">{{ pro._id }}</th>
+                <td>{{ pro.nombre }}</td>
+                <td>{{ pro.activo }}</td>               
+                <td>{{ pro.descripcion }}</td>
+                <td>{{ pro.imagen }}</td>
+                <td align="center">
+                 <!-- Button trigger modal -->
+<button type="button" class="btn btn-sm btn-danger  ml-2 mr-2"  style="margin-left: 5px;" data-toggle="modal" data-target="#modalEliminar"  [disabled]="formSabor.invalid">
+  Eliminar
+</button>
+
+<!-- Modal -->
+<div class="modal  fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog col-md-12 " role="document">
+    <div class="modal-content bg-dark">
+      <div class="modal-header bg-dark">
+        <h5 class="modal-title bg-dark" id="exampleModalLabel" style="color: white;">Desea Eliminar el Producto?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body bg-dark ">
+        <div class="row">
+          <div class="col-md-5 col-12">
+            <img  class="card-img img-fluid" [src]="fotoElegido " width="60px" height="250px" style="margin-bottom:15px;" />
+          </div>
+          <div class="col-md-7">
+            <div class="form-group"> <label>Nombre: <label>{{pro.nombre}}</label></label></div>
+            <div class="form-group"> <label>Descripcion: <label>{{pro.descripcion}}</label></label></div>
+        
+          </div>
+        </div>
+        
+        
+       
+      </div>
+      <div class="modal-footer bg-dark">
+        <button type="button" class="btn btn-outline-success" (click)="borrarSabor(pro._id)" data-dismiss="modal">Eliminar</button>
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+     
+      </div>
+    </div>
+  </div>
+</div>
+
+                  <button
+                    class="btn btn-sm btn-primary  ml-2 mr-2" style="width: 90px;"
+                    (click)="seleccionarSabor(pro)"
+                  >
+                    SELECT
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          
+          </table>
+        
+        </div>
+       
+
+        </div>
+       
+
+       
+    </div>
+    
+</body>
+</html>

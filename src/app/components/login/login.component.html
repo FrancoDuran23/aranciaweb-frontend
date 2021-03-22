@@ -1,0 +1,61 @@
+<div class="  wrapper fadeInDown ">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="/assets/img/logo.png" id="icon" alt="User Icon" />
+    </div>
+
+    <!-- Login Form -->
+    <form #formLogin="ngForm">
+     
+      <input
+      id="login"
+      type="text"
+      name="usuario"
+      class=" fadeIn second"
+      [(ngModel)]="userform.usuario"
+      placeholder="Ingrese nombre de Usuario"
+      #usuario="ngModel"
+      autocomplete="off"
+      required
+    
+    />
+    <div
+    *ngIf="
+      usuario.invalid && (usuario.dirty || usuario.touched)
+    "
+    class="alert alert-danger col-12"
+  >
+    <div *ngIf="usuario?.errors?.required">
+      Es necesario que ingese un nombre de usuario
+    </div>
+   
+  </div>
+  <input
+  id="password"
+  type="password"
+  name="password"
+  class="form-control fadeIn third"
+  [(ngModel)]="userform.password"
+  placeholder="Ingrese su Contraseña"
+  autocomplete="off"
+  required
+/>
+<button style="margin-top:50px;margin-bottom: 20px;"
+class="btn btn-outline-warning"
+[disabled]="!formLogin.form.valid"
+(click)="login()"
+>
+Ingresar
+</button>
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+    
+    </div>
+
+  </div>
+</div>

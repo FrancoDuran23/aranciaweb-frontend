@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container navigation-wrap start-header col-md-12 bg-dark ">
+        
+        <header class="row   ">
+            
+    
+    
+           
+    
+            <nav class="navbar	navbar-expand-md	navbar-dark	bg-dark col-md-12 col-sm-12">
+                
+                
+                <div class="col-md-4 col-sm-6">
+                    <button  style="margin-right: 18px;"class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle	navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                    <img src="/assets/img/logo.png" width="190px" height="80px"  class="icono-pag animate__pulse" style="border-radius: 12px;">
+                    
+                        
+                </div>
+                        
+                
+                <div  class="collapse	navbar-collapse col-md-7 col-sm-2" id="navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            
+                    <ul class="navbar-nav	ml-auto">
+                   
+                        <li class="nav-item">
+                            <a class="nav-link" onmouseover="this.style.color='#f88f01'" onmouseout="this.style.color='white'" [routerLink]="['home']">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a   class="nav-link"onmouseover="this.style.color='#f88f01'" onmouseout="this.style.color='grey'"   [routerLink]="['heladosCli']" >Helados</a>
+                        </li>
+                        <li class="nav-item">
+                            <a    class="nav-link"onmouseover="this.style.color='#f88f01'" onmouseout="this.style.color='grey'"   [routerLink]="['saboresCli']" >Sabores</a>
+                        </li>
+                    
+                        <li  *ngIf="loginService.userLoggedIn" class="nav-item">
+                            <a  class="nav-link" onmouseover="this.style.color='#f88f01'" onmouseout="this.style.color='grey'" [routerLink]="['helado']"   >Gestionar Helados</a>
+                        </li>
+                        <li *ngIf="loginService.userLoggedIn" class="nav-item">
+                            <a    class="nav-link"onmouseover="this.style.color='#f88f01'" onmouseout="this.style.color='grey'"   [routerLink]="['sabor']" >Gestionar Sabores</a>
+                        </li>                      
+                        <li   *ngIf="loginService.userLoggedIn"  class="nav-item">
+                            <a  [routerLink]="['home']"  id="logout"    (click)=" this.loginService.logout()" class="nav-link"onmouseover="this.style.color='#f88f01'" onmouseout="this.style.color='grey'"   >Logout</a>
+                        </li>
+                       
+                        <li  *ngIf="!loginService.userLoggedIn" class="nav-item">
+                            <a   class="nav-link"onmouseover="this.style.color='#f88f01'" onmouseout="this.style.color='grey'"   [routerLink]="['login']" >Login</a>
+                        </li>
+                    
+                      
+                      
+                    
+                    </ul>
+                    <div class="social-part">
+                        <a  href="https://www.facebook.com/aranciahelados"  target="_blank"  style="color:black"  onmouseover="this.style.color='#28527A'" onmouseout="this.style.color='black'">  <i class="fab fa-facebook-square"  ></i></a>
+                      
+                           
+                        <a   href="https://www.instagram.com/aranciahelados/?hl=es-la" target="_blank" style="color:black"  onmouseover="this.style.color='#af0069'" onmouseout="this.style.color='black'"><i class="fab fa-instagram">   </i></a>
+                       
+                        
+                      </div>
+                </div>
+                
+                
+            </nav>
+    
+        </header>
+    </div>
+   
+</body>
+</html>
+<script type="text/javascript"> 
+
+$(document).ready(function myFunction(e) {
+    console.log("h")
+  var elems = document.querySelectorAll(".active");
+  [].forEach.call(elems, function(el) {
+    el.classList.remove("active");
+  });
+  e.target.className = "active";
+});
+    
+</script>
+
+   

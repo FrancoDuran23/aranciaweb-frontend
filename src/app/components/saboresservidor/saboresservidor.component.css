@@ -1,0 +1,22 @@
+.container{
+  margin-top: 20px;
+  padding-top: 40px;
+  padding-bottom: 500px;
+width:100%;
+
+
+
+}
+#formContent {
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background: #343a40;
+  padding: 30px;
+margin-bottom: 10px;
+
+  position: relative;
+  padding: 0px;
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  text-align: center;
+}
